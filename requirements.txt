@@ -1,0 +1,4 @@
+# Core (Week 1). Add packages here as you need them.
+pandas
+pytest
+python-dotenv

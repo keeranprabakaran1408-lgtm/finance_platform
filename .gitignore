@@ -218,3 +218,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node / React
+node_modules/
+frontend/build/
+frontend/dist/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Data and models (generated, not committed)
+data/
+*.pkl
+*.joblib

@@ -3,19 +3,15 @@ from faker import Faker
 import datetime as dt
 
 START_DATE = dt.datetime(2025, 10, 1)
-END_DATE = dt.datetime(2026, 9, 30)
+END_DATE = dt.datetime(2026, 10, 1)
 FRAUD_RATE = 0.015
 MESS_RATE = 0.014
 SEED = 12345
 fake = Faker("en_GB")
 fake.seed_instance(SEED)
-print(fake.name())
 NUM_CUSTOMERS = 300
 rng = np.random.default_rng(SEED)
 rints = rng.integers(low=0, high=10, size=3)
-print(rints)
-print(type(rints[0]))
-print(END_DATE - START_DATE)
 
 CATEGORIES = {
     "groceries":{
@@ -64,8 +60,7 @@ CATEGORIES = {
 
    
 }
-print(CATEGORIES.keys())
-def generate_cusomer_data(num_customers):
+def generate_customer_data(num_customers):
     customers = []
     for _ in range(num_customers):
         favourite = {}
@@ -85,8 +80,9 @@ def generate_cusomer_data(num_customers):
     return customers
 
 def main():
-    customers = generate_cusomer_data(NUM_CUSTOMERS)
-    for customer in customers[0:2]:
+    customers = generate_customer_data(NUM_CUSTOMERS)
+    print(len(customers))
+    for customer in customers[0:3]:
         print(customer)
 if __name__ == "__main__":
     main()

@@ -65,8 +65,28 @@ CATEGORIES = {
    
 }
 print(CATEGORIES.keys())
+def generate_cusomer_data(num_customers):
+    customers = []
+    for _ in range(num_customers):
+        favourite = {}
+
+        for category, details in CATEGORIES.items():
+            quantity = int(rng.integers(1,3))
+            shops = rng.choice(details["businesses"], size=quantity, replace=False).tolist()
+            favourite[category] = shops
+        customer = {
+            "customer_id": fake.uuid4(),
+            "name": fake.name(),
+            "home_country": str(rng.choice(["GB", "US", "FR"], p=[0.9,0.05, 0.05])),
+            "spend_multiplier": round(rng.uniform(0.6,1.6),2),
+            "favourite_businesses": favourite
+        }
+        customers.append(customer)
+    return customers
 
 def main():
-    pass
+    customers = generate_cusomer_data(NUM_CUSTOMERS)
+    for customer in customers[0:2]:
+        print(customer)
 if __name__ == "__main__":
     main()

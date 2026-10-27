@@ -11,8 +11,6 @@ fake = Faker("en_GB")
 fake.seed_instance(SEED)
 NUM_CUSTOMERS = 300
 rng = np.random.default_rng(SEED)
-rints = rng.integers(low=0, high=10, size=3)
-
 CATEGORIES = {
     "groceries":{
          "businesses": ["Tesco", "Morrisons", "Sainsbury's","Asda", "Aldi" ],

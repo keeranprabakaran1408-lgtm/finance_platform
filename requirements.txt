@@ -2,3 +2,5 @@
 pandas
 pytest
 python-dotenv
+numpy
+faker

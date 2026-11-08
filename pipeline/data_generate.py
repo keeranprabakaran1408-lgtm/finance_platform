@@ -1,3 +1,4 @@
+
 import numpy as np
 from faker import Faker
 import datetime as dt
@@ -77,10 +78,44 @@ def generate_customer_data(num_customers):
         customers.append(customer)
     return customers
 
+
+def generate_customer_transactions(customers):
+    transactions = []
+    for customer in customers:
+        for category, details in CATEGORIES.items():
+            if not details["recurring"]:
+                continue
+            business = customer["favourite_businesses"][category][0]   
+            amount = round(rng.uniform(details["amount_range"][0], details["amount_range"][1]) * customer["spend_multiplier"], 2)
+            day = int(rng.integers(1,29))                                       
+            for m in range(12):
+                months_since_start = START_DATE.month - 1 + m                   
+                year =  START_DATE.year + months_since_start //12 
+                month = (months_since_start % 12) + 1                                                  
+                hour = int(rng.integers(1,7))
+                timestamp = dt.datetime(year, month, day, hour)
+                transaction = {
+                    "transaction_id": fake.uuid4(),
+                    "customer_id": customer["customer_id"],
+                    "timestamp": timestamp,
+                    "category": category,
+                    "business": business,
+                    "amount": amount,
+                    "country": customer["home_country"],
+                    "channel": "direct_debit",
+                    "is_fraud": 0,
+                }
+                transactions.append(transaction)
+    return transactions
+
+
 def main():
     customers = generate_customer_data(NUM_CUSTOMERS)
     print(len(customers))
-    for customer in customers[0:3]:
-        print(customer)
+    all_transactions = generate_customer_transactions(customers)   
+    print(len(all_transactions))
+    for summary in all_transactions[0:2]:
+        print(summary)
+     
 if __name__ == "__main__":
     main()
